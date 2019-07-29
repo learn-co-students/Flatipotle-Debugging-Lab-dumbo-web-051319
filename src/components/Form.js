@@ -4,6 +4,7 @@ import FillingForm from './FillingForm'
 import ToppingForm from './ToppingForm'
 import SideForm from './SideForm'
 
+
 const DEFAULT_STATE = {
   protein: [],
   fillings: [],
@@ -16,8 +17,10 @@ class Form extends Component {
     ...DEFAULT_STATE
   }
 
-  handleSubmit() {
+  handleSubmit = (event) => {
     event.preventDefault()
+    // console.log(this);
+    // debugger
     document.getElementById("order-form").reset()
     this.props.addOrder(this.state)
 
@@ -26,10 +29,11 @@ class Form extends Component {
     })
   }
 
-  handleChange() {
+  handleChange = (event) => {
     const itemType = event.target.name
     const item = event.target.value
-
+    // console.log(this.state);
+    // debugger
     !this.state[`${itemType}`].includes(item) ?
       this.setState({
         [itemType]: this.state[`${itemType}`].concat(item)
@@ -43,6 +47,7 @@ class Form extends Component {
   }
 
   render() {
+    // debugger
     return(
       <div className="ui raised container segment">
         <h1 className="ui block header">Order Form</h1>
@@ -54,17 +59,17 @@ class Form extends Component {
 
           <FillingForm
             fillings={ this.state.fillings }
-            handleOnChange={ this.handleChange }
+            handleChange={ this.handleChange }
           />
 
           <ToppingForm
             toppings={ this.state.toppings }
-            handleOnChange={ this.handleChange }
+            handleChange={ this.handleChange }
           />
 
           <SideForm
             sides={ this.state.sides }
-            handleOnChange={ this.handleChange }
+            handleChange={ this.handleChange }
           />
 
           <br />
